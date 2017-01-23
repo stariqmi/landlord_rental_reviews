@@ -77,6 +77,7 @@
 	    key: 'handleAddClick',
 	    value: function handleAddClick() {
 	      // Validate non empty input
+	      var inputs = document.querySelectorAll('input.add-address-input');
 
 	      // Make AJAX call to add to server
 
@@ -103,7 +104,7 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'input-field col s12 m12 l12' },
-	            _react2.default.createElement('input', { placeholder: '200 University Avenue', id: 'street_addr', type: 'text', className: 'street_addr' }),
+	            _react2.default.createElement('input', { placeholder: '200 University Avenue', id: 'street_addr', type: 'text', className: 'add-address-input street_addr' }),
 	            _react2.default.createElement(
 	              'label',
 	              { htmlFor: 'street_addr' },
@@ -117,7 +118,7 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'input-field col s12 m6 l6' },
-	            _react2.default.createElement('input', { placeholder: 'Waterloo', id: 'city', type: 'text', className: 'city' }),
+	            _react2.default.createElement('input', { placeholder: 'Waterloo', id: 'city', type: 'text', className: 'add-address-input city' }),
 	            _react2.default.createElement(
 	              'label',
 	              { htmlFor: 'city' },
@@ -127,7 +128,7 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'input-field col s12 m6 l6' },
-	            _react2.default.createElement('input', { placeholder: 'Ontario', id: 'province', type: 'text', className: 'province' }),
+	            _react2.default.createElement('input', { placeholder: 'Ontario', id: 'province', type: 'text', className: 'add-address-input province' }),
 	            _react2.default.createElement(
 	              'label',
 	              { htmlFor: 'province' },
@@ -141,7 +142,7 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'input-field col s12 m6 l6' },
-	            _react2.default.createElement('input', { placeholder: 'N2R 4X6', id: 'postal_code', type: 'text', className: 'postal_code' }),
+	            _react2.default.createElement('input', { placeholder: 'N2R 4X6', id: 'postal_code', type: 'text', className: 'add-address-input postal_code' }),
 	            _react2.default.createElement(
 	              'label',
 	              { htmlFor: 'postal_code' },
@@ -151,7 +152,7 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'input-field col s12 m6 l6' },
-	            _react2.default.createElement('input', { placeholder: 'Canada', id: 'country', type: 'text', className: 'country' }),
+	            _react2.default.createElement('input', { placeholder: 'Canada', id: 'country', type: 'text', className: 'add-address-input country' }),
 	            _react2.default.createElement(
 	              'label',
 	              { htmlFor: 'country' },
@@ -167,7 +168,7 @@
 	            { className: 'col s12 m6 l4' },
 	            _react2.default.createElement(
 	              'a',
-	              { className: 'waves-effect waves-light btn add-address-button' },
+	              { className: 'waves-effect waves-light btn add-address-button', onClick: this.handleAddClick },
 	              'Add'
 	            )
 	          )
