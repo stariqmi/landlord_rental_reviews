@@ -23585,7 +23585,7 @@
 	            ),
 	            _react2.default.createElement(
 	              "a",
-	              { href: "#" },
+	              { href: "/address/" + this.props.data.id + "/reviews" },
 	              this.props.data.total_reviews + " Reviews"
 	            )
 	          )

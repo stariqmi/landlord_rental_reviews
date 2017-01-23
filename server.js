@@ -104,7 +104,47 @@ app.get('/addresses', function(req, res) {
 
 app.get('/', function(req, res) {
   res.sendFile(__dirname + '/index.html');
-})
+});
+
+app.get('/address/:id/reviews', function(req, res) {
+  res.sendFile(__dirname + '/reviews.html');
+});
+
+app.get('/reviews/:id', function(req, res) {
+  var query = {
+    index: "addresses",
+    type: "review",
+    body: {
+      "query": {
+            "has_parent": {
+                "parent_type": "address",
+                "query": {
+                    "match": {
+                       "_id": req.params.id
+                    }
+                }
+            }
+        },
+        "aggs": {
+            "avg_rating": {
+                "avg": {
+                    "field": "rating"
+                }
+            }
+        }
+    }
+  };
+
+  esClient.search(query)
+  .then(
+    function(body) {
+      res.send(body);
+    },
+    function(error) {
+      res.send(error.message)
+    }
+  );
+});
 
 app.listen(3000, function() {
   console.log('listening on port 3000');

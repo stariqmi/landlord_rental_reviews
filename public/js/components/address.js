@@ -8,7 +8,7 @@ class Address extends React.Component {
 
   render() {
     return (
-      <div className="col s12 m6 l3">
+      <div className="col s6 m4 l3">
         <div className="card address-card light-green darken-1">
           <div className="card-content white-text">
             <p>
@@ -20,7 +20,7 @@ class Address extends React.Component {
           </div>
           <div className="card-action green-text">
             <a>{this.props.data.avg_rating + ' / 5'}</a>
-            <a href="#">{this.props.data.total_reviews + " Reviews"}</a>
+            <a href={"/address/" + this.props.data.id + "/reviews"}>{this.props.data.total_reviews + " Reviews"}</a>
           </div>
         </div>
       </div>

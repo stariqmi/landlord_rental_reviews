@@ -60,14 +60,6 @@
 
 	var SuperAgent = _interopRequireWildcard(_superagent);
 
-	var _address = __webpack_require__(185);
-
-	var _address2 = _interopRequireDefault(_address);
-
-	var _add_address = __webpack_require__(186);
-
-	var _add_address2 = _interopRequireDefault(_add_address);
-
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -78,44 +70,67 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	// components
+	var Review = function (_React$Component) {
+	  _inherits(Review, _React$Component);
 
+	  function Review() {
+	    _classCallCheck(this, Review);
 
-	var SearchApp = function (_React$Component) {
-	  _inherits(SearchApp, _React$Component);
-
-	  function SearchApp() {
-	    _classCallCheck(this, SearchApp);
-
-	    var _this = _possibleConstructorReturn(this, (SearchApp.__proto__ || Object.getPrototypeOf(SearchApp)).call(this));
-
-	    _this.state = {
-	      data: [],
-	      changeTimer: null
-	    };
-
-	    _this.handleSearchChange = _this.handleSearchChange.bind(_this);
-	    return _this;
+	    return _possibleConstructorReturn(this, (Review.__proto__ || Object.getPrototypeOf(Review)).call(this));
 	  }
 
-	  _createClass(SearchApp, [{
+	  _createClass(Review, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'col s6 m6 l4' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'card-panel light-green darken-1' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'card-content white-text' },
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              this.props.text,
+	              _react2.default.createElement('br', null),
+	              _react2.default.createElement('br', null),
+	              this.props.rating + ' / 5'
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Review;
+	}(_react2.default.Component);
+
+	var Reviews = function (_React$Component2) {
+	  _inherits(Reviews, _React$Component2);
+
+	  function Reviews() {
+	    _classCallCheck(this, Reviews);
+
+	    var _this2 = _possibleConstructorReturn(this, (Reviews.__proto__ || Object.getPrototypeOf(Reviews)).call(this));
+
+	    _this2.state = {
+	      id: window.location.pathname.split('/')[2],
+	      reviews: [],
+	      avg_rating: ''
+	    };
+	    return _this2;
+	  }
+
+	  _createClass(Reviews, [{
 	    key: 'setInitialState',
 	    value: function setInitialState() {
-	      var _this2 = this;
-
-	      SuperAgent.get('/addresses?city=waterloo').then(function (res) {
-	        _this2.setState({ data: res.body.addresses });
-	      }, function () {
-	        // throw new error
-	      });
-	    }
-	  }, {
-	    key: 'getSearchResults',
-	    value: function getSearchResults(searchString) {
 	      var _this3 = this;
 
-	      SuperAgent.get('/addresses?full_addr=' + searchString).then(function (res) {
-	        _this3.setState({ data: res.body.addresses });
+	      SuperAgent.get('/reviews/' + this.state.id).then(function (res) {
+	        _this3.setState({ reviews: res.body.hits.hits, avg_rating: res.body.aggregations.avg_rating.value });
 	      }, function () {
 	        // throw new error
 	      });
@@ -126,74 +141,35 @@
 	      this.setInitialState();
 	    }
 	  }, {
-	    key: 'handleSearchChange',
-	    value: function handleSearchChange(event) {
-	      var _this4 = this;
-
-	      var current = event.target.value;
-
-	      if (this.state.changeTimer !== null) clearTimeout(this.state.changeTimer);
-
-	      this.setState({
-	        changeTimer: setTimeout(function () {
-	          _this4.getSearchResults(current);
-	          _this4.setState({ changeTimer: null });
-	        }, 300)
-	      });
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
-
-	      var components = this.state.data.map(function (address) {
-	        return _react2.default.createElement(_address2.default, { key: address.id, data: address });
-	      });
-
-	      var add_size = components.length ? 'l3' : 'l4';
-	      components.push(_react2.default.createElement(_add_address2.default, { key: '1', size: add_size }));
-
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'container' },
 	        _react2.default.createElement(
+	          'center',
+	          null,
+	          _react2.default.createElement(
+	            'h3',
+	            { className: 'app-title' },
+	            'Rental Reviews'
+	          )
+	        ),
+	        _react2.default.createElement(
 	          'div',
 	          { className: 'row' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'col s12 m12 l12' },
-	            _react2.default.createElement(
-	              'center',
-	              null,
-	              _react2.default.createElement(
-	                'h3',
-	                { className: 'app-title' },
-	                'Find rental reviews'
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'row' },
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'input-field col s12 offset-m1 m10 offset-l2 l8' },
-	                _react2.default.createElement('input', { placeholder: 'Type an address ...', type: 'text', onChange: this.handleSearchChange })
-	              )
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'row' },
-	            components
-	          )
+	          this.state.reviews.map(function (review) {
+	            return _react2.default.createElement(Review, { key: review._id, text: review._source.review, rating: review._source.rating });
+	          })
 	        )
 	      );
 	    }
 	  }]);
 
-	  return SearchApp;
+	  return Reviews;
 	}(_react2.default.Component);
 
-	_reactDom2.default.render(_react2.default.createElement(SearchApp, null), document.getElementById('search'));
+	_reactDom2.default.render(_react2.default.createElement(Reviews, null), document.getElementById('address'));
 
 /***/ },
 /* 1 */
@@ -23513,163 +23489,6 @@
 	  return header;
 	};
 
-
-/***/ },
-/* 185 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Address = function (_React$Component) {
-	  _inherits(Address, _React$Component);
-
-	  function Address() {
-	    _classCallCheck(this, Address);
-
-	    return _possibleConstructorReturn(this, (Address.__proto__ || Object.getPrototypeOf(Address)).call(this));
-	  }
-
-	  _createClass(Address, [{
-	    key: "render",
-	    value: function render() {
-	      return _react2.default.createElement(
-	        "div",
-	        { className: "col s6 m4 l3" },
-	        _react2.default.createElement(
-	          "div",
-	          { className: "card address-card light-green darken-1" },
-	          _react2.default.createElement(
-	            "div",
-	            { className: "card-content white-text" },
-	            _react2.default.createElement(
-	              "p",
-	              null,
-	              _react2.default.createElement(
-	                "b",
-	                { className: "truncate" },
-	                this.props.data.street_addr
-	              ),
-	              _react2.default.createElement("br", null),
-	              this.props.data.city + ', ' + this.props.data.province,
-	              _react2.default.createElement("br", null),
-	              this.props.data.postal_code,
-	              _react2.default.createElement("br", null),
-	              this.props.data.country
-	            )
-	          ),
-	          _react2.default.createElement(
-	            "div",
-	            { className: "card-action green-text" },
-	            _react2.default.createElement(
-	              "a",
-	              null,
-	              this.props.data.avg_rating + ' / 5'
-	            ),
-	            _react2.default.createElement(
-	              "a",
-	              { href: "#" },
-	              this.props.data.total_reviews + " Reviews"
-	            )
-	          )
-	        )
-	      );
-	    }
-	  }]);
-
-	  return Address;
-	}(_react2.default.Component);
-
-	exports.default = Address;
-
-/***/ },
-/* 186 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var AddAddress = function (_React$Component) {
-	  _inherits(AddAddress, _React$Component);
-
-	  function AddAddress() {
-	    _classCallCheck(this, AddAddress);
-
-	    return _possibleConstructorReturn(this, (AddAddress.__proto__ || Object.getPrototypeOf(AddAddress)).call(this));
-	  }
-
-	  _createClass(AddAddress, [{
-	    key: "render",
-	    value: function render() {
-	      return _react2.default.createElement(
-	        "div",
-	        { className: "col s6 m4 " + this.props.size },
-	        _react2.default.createElement(
-	          "div",
-	          { className: "card add-action-card orange darken-2" },
-	          _react2.default.createElement(
-	            "div",
-	            { className: "card-content white-text" },
-	            _react2.default.createElement(
-	              "p",
-	              null,
-	              "Cannot find what the location you are looking for?"
-	            ),
-	            _react2.default.createElement("br", null),
-	            _react2.default.createElement("br", null)
-	          ),
-	          _react2.default.createElement(
-	            "div",
-	            { className: "card-action add-action-card" },
-	            _react2.default.createElement(
-	              "a",
-	              { href: "#" },
-	              "Add a new rental location"
-	            )
-	          )
-	        )
-	      );
-	    }
-	  }]);
-
-	  return AddAddress;
-	}(_react2.default.Component);
-
-	exports.default = AddAddress;
 
 /***/ }
 /******/ ]);

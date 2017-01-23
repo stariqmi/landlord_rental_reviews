@@ -67,7 +67,7 @@ class SearchApp extends React.Component {
     });
 
     let add_size = components.length ? 'l3' : 'l4';
-    components.push(<AddAddress size={add_size}/>);
+    components.push(<AddAddress key="1" size={add_size}/>);
 
     return (
       <div className="container">

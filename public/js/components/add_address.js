@@ -8,11 +8,10 @@ class AddAddress extends React.Component {
 
   render() {
     return (
-      <div className={"col s12 m6 " + this.props.size}>
+      <div className={"col s6 m4 " + this.props.size}>
         <div className="card add-action-card orange darken-2">
           <div className="card-content white-text">
-            <span class="card-title">Cannot find what the location you are looking for?</span>
-            <p></p><br/><br/>
+            <p>Cannot find what the location you are looking for?</p><br/><br/>
           </div>
           <div className="card-action add-action-card">
             <a href="#">Add a new rental location</a>
