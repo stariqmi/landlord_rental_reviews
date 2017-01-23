@@ -28,7 +28,20 @@
 }
 
 /* label underline focus color */
- .input-field input[type=text]:focus {
-   border-bottom: 1px solid #f57c00;
-   box-shadow: 0 1px 0 0 #f57c00;
- }
+.input-field input[type=text]:focus {
+  border-bottom: 1px solid #f57c00;
+  box-shadow: 0 1px 0 0 #f57c00;
+}
+
+ /* label color */
+.input-field label {
+  color: #7cb342;
+}
+/* label focus color */
+.input-field input[type=text]:focus + label {
+  color: #7cb342;
+}
+
+.add-address-button {
+  background-color: #f57c00 !important;
+}

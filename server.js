@@ -106,6 +106,32 @@ app.get('/', function(req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
+app.get('/address/new', function(req, res) {
+  res.sendFile(__dirname + '/new_address.html');
+})
+
+app.get('/address/:id', function(req, res) {
+  esClient.search({
+    index: 'addresses',
+    type: 'address',
+    body: {
+      query: {
+        match: {
+          '_id': req.params.id
+        }
+      }
+    }
+  })
+  .then(
+    function(body) {
+      res.send(body);
+    },
+    function(error) {
+      res.send(error.message)
+    }
+  );
+})
+
 app.get('/address/:id/reviews', function(req, res) {
   res.sendFile(__dirname + '/reviews.html');
 });
@@ -116,22 +142,18 @@ app.get('/reviews/:id', function(req, res) {
     type: "review",
     body: {
       "query": {
-            "has_parent": {
-                "parent_type": "address",
-                "query": {
-                    "match": {
-                       "_id": req.params.id
-                    }
-                }
-            }
-        },
-        "aggs": {
-            "avg_rating": {
-                "avg": {
-                    "field": "rating"
-                }
-            }
+        "parent_id": {
+          "type": "review",
+          "id": req.params.id
         }
+      },
+      "aggs": {
+        "avg_rating": {
+          "avg": {
+            "field": "rating"
+          }
+        }
+      }
     }
   };
 

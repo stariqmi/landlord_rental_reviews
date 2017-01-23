@@ -5,10 +5,13 @@ class AddAddress extends React.Component {
     super();
   }
 
+  handleClick() {
+    window.location = '/address/new';
+  }
 
   render() {
     return (
-      <div className={"col s6 m4 " + this.props.size}>
+      <div className={"col s6 m4 " + this.props.size} onClick={this.handleClick}>
         <div className="card add-action-card orange darken-2">
           <div className="card-content white-text">
             <p>Cannot find what the location you are looking for?</p><br/><br/>

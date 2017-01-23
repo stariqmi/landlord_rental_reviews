@@ -57,6 +57,9 @@
                 },
                 "rating": {
                     "type": "integer"
+                },
+                "added_at": {
+                  "type": "date"
                 }
             }
         }

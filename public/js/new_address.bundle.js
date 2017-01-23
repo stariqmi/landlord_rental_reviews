@@ -64,21 +64,25 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Reviews = function (_React$Component) {
-	  _inherits(Reviews, _React$Component);
+	var NewAddress = function (_React$Component) {
+	  _inherits(NewAddress, _React$Component);
 
-	  function Reviews() {
-	    _classCallCheck(this, Reviews);
+	  function NewAddress() {
+	    _classCallCheck(this, NewAddress);
 
-	    var _this = _possibleConstructorReturn(this, (Reviews.__proto__ || Object.getPrototypeOf(Reviews)).call(this));
-
-	    _this.state = {
-	      id: window.location
-	    };
-	    return _this;
+	    return _possibleConstructorReturn(this, (NewAddress.__proto__ || Object.getPrototypeOf(NewAddress)).call(this));
 	  }
 
-	  _createClass(Reviews, [{
+	  _createClass(NewAddress, [{
+	    key: 'handleAddClick',
+	    value: function handleAddClick() {
+	      // Validate non empty input
+
+	      // Make AJAX call to add to server
+
+	      // Change location to adding a review
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -88,20 +92,94 @@
 	          'center',
 	          null,
 	          _react2.default.createElement(
-	            'h1',
-	            null,
-	            'Rental Reviews'
+	            'h4',
+	            { className: 'app-title' },
+	            'Add a new location'
 	          )
 	        ),
-	        _react2.default.createElement('div', { className: 'row' })
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'input-field col s12 m12 l12' },
+	            _react2.default.createElement('input', { placeholder: '200 University Avenue', id: 'street_addr', type: 'text', className: 'street_addr' }),
+	            _react2.default.createElement(
+	              'label',
+	              { htmlFor: 'street_addr' },
+	              'Street Address'
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'input-field col s12 m6 l6' },
+	            _react2.default.createElement('input', { placeholder: 'Waterloo', id: 'city', type: 'text', className: 'city' }),
+	            _react2.default.createElement(
+	              'label',
+	              { htmlFor: 'city' },
+	              'City'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'input-field col s12 m6 l6' },
+	            _react2.default.createElement('input', { placeholder: 'Ontario', id: 'province', type: 'text', className: 'province' }),
+	            _react2.default.createElement(
+	              'label',
+	              { htmlFor: 'province' },
+	              'Province'
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'input-field col s12 m6 l6' },
+	            _react2.default.createElement('input', { placeholder: 'N2R 4X6', id: 'postal_code', type: 'text', className: 'postal_code' }),
+	            _react2.default.createElement(
+	              'label',
+	              { htmlFor: 'postal_code' },
+	              'Postal Code'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'input-field col s12 m6 l6' },
+	            _react2.default.createElement('input', { placeholder: 'Canada', id: 'country', type: 'text', className: 'country' }),
+	            _react2.default.createElement(
+	              'label',
+	              { htmlFor: 'country' },
+	              'Country'
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col s12 m6 l4' },
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'waves-effect waves-light btn add-address-button' },
+	              'Add'
+	            )
+	          )
+	        )
 	      );
 	    }
 	  }]);
 
-	  return Reviews;
+	  return NewAddress;
 	}(_react2.default.Component);
 
-	_reactDom2.default.render(_react2.default.createElement(Reviews, null), document.getElementByID('address'));
+	_reactDom2.default.render(_react2.default.createElement(NewAddress, null), document.getElementById('new_address'));
 
 /***/ },
 /* 1 */

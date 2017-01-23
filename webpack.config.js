@@ -4,7 +4,8 @@ var webpack = require('webpack');
 module.exports = {
   entry: {
     search: './public/js/main.js',
-    reviews: './public/js/reviews.js'
+    reviews: './public/js/reviews.js',
+    new_address: './public/js/new_address.js'
   },
   output: {
     path: __dirname + '/public/js/',

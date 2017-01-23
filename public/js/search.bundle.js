@@ -60,11 +60,11 @@
 
 	var SuperAgent = _interopRequireWildcard(_superagent);
 
-	var _address = __webpack_require__(185);
+	var _address = __webpack_require__(186);
 
 	var _address2 = _interopRequireDefault(_address);
 
-	var _add_address = __webpack_require__(186);
+	var _add_address = __webpack_require__(187);
 
 	var _add_address2 = _interopRequireDefault(_add_address);
 
@@ -23515,7 +23515,8 @@
 
 
 /***/ },
-/* 185 */
+/* 185 */,
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -23548,11 +23549,16 @@
 	  }
 
 	  _createClass(Address, [{
+	    key: "handleClick",
+	    value: function handleClick(id) {
+	      window.location = "/address/" + id + "/reviews";
+	    }
+	  }, {
 	    key: "render",
 	    value: function render() {
 	      return _react2.default.createElement(
 	        "div",
-	        { className: "col s6 m4 l3" },
+	        { className: "col s6 m4 l3", onClick: this.handleClick.bind(this, this.props.data.id) },
 	        _react2.default.createElement(
 	          "div",
 	          { className: "card address-card light-green darken-1" },
@@ -23600,10 +23606,10 @@
 	exports.default = Address;
 
 /***/ },
-/* 186 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -23633,32 +23639,37 @@
 	  }
 
 	  _createClass(AddAddress, [{
-	    key: "render",
+	    key: 'handleClick',
+	    value: function handleClick() {
+	      window.location = '/address/new';
+	    }
+	  }, {
+	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        "div",
-	        { className: "col s6 m4 " + this.props.size },
+	        'div',
+	        { className: "col s6 m4 " + this.props.size, onClick: this.handleClick },
 	        _react2.default.createElement(
-	          "div",
-	          { className: "card add-action-card orange darken-2" },
+	          'div',
+	          { className: 'card add-action-card orange darken-2' },
 	          _react2.default.createElement(
-	            "div",
-	            { className: "card-content white-text" },
+	            'div',
+	            { className: 'card-content white-text' },
 	            _react2.default.createElement(
-	              "p",
+	              'p',
 	              null,
-	              "Cannot find what the location you are looking for?"
+	              'Cannot find what the location you are looking for?'
 	            ),
-	            _react2.default.createElement("br", null),
-	            _react2.default.createElement("br", null)
+	            _react2.default.createElement('br', null),
+	            _react2.default.createElement('br', null)
 	          ),
 	          _react2.default.createElement(
-	            "div",
-	            { className: "card-action add-action-card" },
+	            'div',
+	            { className: 'card-action add-action-card' },
 	            _react2.default.createElement(
-	              "a",
-	              { href: "#" },
-	              "Add a new rental location"
+	              'a',
+	              { href: '#' },
+	              'Add a new rental location'
 	            )
 	          )
 	        )
