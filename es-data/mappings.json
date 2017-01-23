@@ -1,0 +1,64 @@
+{
+    "mappings": {
+        "address": {
+            "properties": {
+                "street_addr": {
+                    "type": "string",
+                    "copy_to": "full_addr"
+                },
+                "city": {
+                    "type": "string",
+                    "copy_to": "full_addr",
+                    "fields": {
+                        "keyword": {
+                            "type": "keyword"
+                        }
+                    }
+                },
+                "province": {
+                    "type": "string",
+                    "copy_to": "full_addr",
+                    "fields": {
+                        "keyword": {
+                            "type": "keyword"
+                        }
+                    }
+                },
+                "postal_code": {
+                    "type": "string",
+                    "copy_to": "full_addr",
+                    "fields": {
+                        "keyword": {
+                            "type": "keyword"
+                        }
+                    }
+                },
+                "full_addr": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string",
+                    "copy_to": "full_addr",
+                    "fields": {
+                        "keyword": {
+                            "type": "keyword"
+                        }
+                    }
+                }
+            }
+        },
+        "review": {
+            "_parent": {
+               "type": "address"
+            },
+            "properties": {
+                "review": {
+                    "type": "string"
+                },
+                "rating": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "query": {
+        "has_parent": {
+            "parent_type": "address",
+            "query": {
+                "match": {
+                   "_id": "< _id for address >"
+                }
+            }
+        }
+    },
+    "aggs": {
+        "avg_rating": {
+            "avg": {
+                "field": "rating"
+            }
+        }
+    }
+}

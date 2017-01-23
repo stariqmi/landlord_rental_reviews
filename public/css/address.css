@@ -1,0 +1,34 @@
+.truncate {
+  width: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app-title {
+  color: #f57c00;
+}
+
+#search .address-card.card:hover {
+  cursor: pointer;
+  background-color: #f57c00 !important;
+}
+
+#search .card-action a {
+  color:  white;
+}
+
+.add-action-card a {
+  color: white !important;
+}
+
+.card.add-action-card:hover {
+  cursor: pointer;
+  background-color: #ef6c00 !important;
+}
+
+/* label underline focus color */
+ .input-field input[type=text]:focus {
+   border-bottom: 1px solid #f57c00;
+   box-shadow: 0 1px 0 0 #f57c00;
+ }

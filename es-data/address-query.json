@@ -1,0 +1,21 @@
+{
+    "query": {
+        "bool": {
+            "should": [
+               {
+                   "match": {
+                    "full_addr": "Brookhaven"
+                   }
+               },
+               {
+                   "has_child": {
+                       "type": "review",
+                       "query": {"match_all": {}},
+                       "inner_hits": {}
+                   }
+               }
+            ]
+        },
+        "minimum_should_match": 2
+    }
+}
