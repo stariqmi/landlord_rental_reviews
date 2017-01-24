@@ -142,7 +142,7 @@
 	            { className: 'nav-wrapper orange darken-2' },
 	            _react2.default.createElement(
 	              'ul',
-	              { id: 'nav-mobile', className: 'right hide-on-med-and-down' },
+	              { id: 'nav-mobile', className: 'right' },
 	              _react2.default.createElement(
 	                'li',
 	                null,
@@ -165,7 +165,7 @@
 	          _react2.default.createElement(
 	            'h4',
 	            { className: 'app-title' },
-	            'Add a new location'
+	            'add a new location'
 	          ),
 	          _react2.default.createElement(
 	            'div',

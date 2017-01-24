@@ -1,0 +1,49 @@
+/* textarea underline focus color */
+.input-field textarea {
+  border-bottom: 1px solid #f57c00;
+  box-shadow: 0 1px 0 0 #f57c00;
+}
+
+.input-field textarea:focus {
+  border-bottom: 1px solid #7cb342!important;
+  box-shadow: 0 1px 0 0 #7cb342!important;
+}
+
+.input-field textarea {
+  color: #f57c00;
+}
+
+.input-field textarea + label {
+  color: #f57c00;
+}
+
+/* textarea label focus color */
+.input-field textarea:focus + label {
+  color: #7cb342 !important;
+}
+
+
+/* label underline focus color */
+.new-review.input-field input[type=number] {
+  border-bottom: 1px solid #f57c00;
+  box-shadow: 0 1px 0 0 #f57c00;
+  color: #f57c00;
+}
+
+.new-review.input-field input[type=number]:focus {
+  border-bottom: 1px solid #7cb342;
+  box-shadow: 0 1px 0 0 #7cb342;
+}
+
+/* label color */
+.new-review.input-field input[type=number] + label {
+  color: #f57c00;
+}
+/* label focus color */
+.new-review.input-field input[type=number]:focus + label {
+ color: #7cb342;
+}
+
+.new-review .add-review-button {
+  background-color: #7cb342 !important;
+}

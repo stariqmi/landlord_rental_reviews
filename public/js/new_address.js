@@ -55,14 +55,14 @@ class NewAddress extends React.Component {
       <div>
         <nav>
           <div className="nav-wrapper orange darken-2">
-            <ul id="nav-mobile" className="right hide-on-med-and-down">
+            <ul id="nav-mobile" className="right">
               <li><a href="/"><i className="material-icons">search</i></a></li>
             </ul>
           </div>
         </nav>
         <div className="container">
 
-          <h4 className="app-title">Add a new location</h4>
+          <h4 className="app-title">add a new location</h4>
           <div className="row">
             <InputField
               responsive="s12 m12 l12"

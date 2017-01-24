@@ -22,7 +22,6 @@ class Address extends React.Component {
             </p>
           </div>
           <div className="card-action green-text">
-            <a>{this.props.data.avg_rating + ' / 5'}</a>
             <a href={"/address/" + this.props.data.id + "/reviews"}>{this.props.data.total_reviews + " Reviews"}</a>
           </div>
         </div>

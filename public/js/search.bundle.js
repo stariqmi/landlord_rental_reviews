@@ -103,7 +103,7 @@
 	    value: function setInitialState() {
 	      var _this2 = this;
 
-	      SuperAgent.get('/addresses?city=waterloo').then(function (res) {
+	      SuperAgent.get('/addresses?city=waterloo&limit=7').then(function (res) {
 	        _this2.setState({ data: res.body.addresses });
 	      }, function () {
 	        // throw new error
@@ -167,7 +167,7 @@
 	              _react2.default.createElement(
 	                'h3',
 	                { className: 'app-title' },
-	                'Find rental reviews'
+	                'find rental reviews'
 	              )
 	            ),
 	            _react2.default.createElement(
@@ -23587,11 +23587,6 @@
 	          _react2.default.createElement(
 	            "div",
 	            { className: "card-action green-text" },
-	            _react2.default.createElement(
-	              "a",
-	              null,
-	              this.props.data.avg_rating + ' / 5'
-	            ),
 	            _react2.default.createElement(
 	              "a",
 	              { href: "/address/" + this.props.data.id + "/reviews" },

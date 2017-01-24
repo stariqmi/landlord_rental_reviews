@@ -15,11 +15,13 @@ app.use(bodyParser.json());
 app.use(cors());
 
 
-function createQuery(type, should) {
+function createQuery(type, should, limit) {
   var query = {
     index: 'addresses',
     type: type,
     body: {
+      "size": limit,
+      "sort": [{"_doc": "desc"}],
       "query": {
         "bool": should
       }
@@ -29,7 +31,7 @@ function createQuery(type, should) {
   return query;
 }
 
-function createAddressQuery(query_params) {
+function createAddressQuery(query_params, limit) {
   return createQuery(
     'address',
     {
@@ -48,7 +50,8 @@ function createAddressQuery(query_params) {
         }
       ],
       "minimum_should_match": 2
-    }
+    },
+    limit || 10
   )
 }
 
@@ -59,7 +62,7 @@ function ratingsSum(reviews) {
 }
 
 function avgRating(reviews) {
-  return ratingsSum(reviews) / reviews.length;
+  return parseFloat(ratingsSum(reviews)) / reviews.length;
 }
 
 function parseAddresses(raw) {
@@ -72,7 +75,7 @@ function parseAddresses(raw) {
     source.id = hit._id;
     source.total_reviews = hit.inner_hits.reviews.hits.total;
 
-    source.avg_rating = avgRating(hit.inner_hits.reviews.hits.hits).toFixed(2);
+    source.avg_rating = avgRating(hit.inner_hits.reviews.hits.hits).toFixed(1);
 
     data.push(source);
   }
@@ -81,14 +84,15 @@ function parseAddresses(raw) {
 }
 
 app.get('/addresses', function(req, res) {
-  console.log('GET /addresses');
-
   var query_params = {};
 
   // Convert this into your own middleware
   Object.assign(query_params, req.body, req.query, req.params)
 
-  var query = createAddressQuery(query_params)
+  var limit = query_params.limit || 10;
+  delete query_params.limit;
+
+  var query = createAddressQuery(query_params, limit);
 
   esClient.search(query)
   .then(
@@ -121,7 +125,25 @@ app.post('/address/new', function(req, res) {
       res.send(body);
     },
     function(err) {
-      //
+      res.send({error: 'Unable to create location/address/propery'});
+    }
+  )
+});
+
+app.post('/address/:id/reviews/new', function(req, res) {
+  esClient.index({
+    index: 'addresses',
+    type: 'review',
+    parent: req.params.id,
+    body: req.body
+  })
+  .then(
+    function(body) {
+      console.log(JSON.stringify(body));
+      res.send(body);
+    },
+    function(err) {
+      res.send({error: 'Unable to add review'});
     }
   )
 });
@@ -152,11 +174,17 @@ app.get('/address/:id/reviews', function(req, res) {
   res.sendFile(__dirname + '/reviews.html');
 });
 
+// ElasticSearch query func
 app.get('/reviews/:id', function(req, res) {
+
+  var from = req.query.from || 0;
+
   var query = {
     index: "addresses",
     type: "review",
     body: {
+      "from": from,
+      "sort": [{"_doc": "desc"}],
       "query": {
         "parent_id": {
           "type": "review",
@@ -176,6 +204,7 @@ app.get('/reviews/:id', function(req, res) {
   esClient.search(query)
   .then(
     function(body) {
+      console.log('/reviews/' + req.params.id + ' was successful');
       res.send(body);
     },
     function(error) {

@@ -8,7 +8,7 @@ class AddReviewCard extends React.Component {
   }
 
   handleClick() {
-    window.location = `/address/${this.props.address}/new`;
+    window.location = `/address/${this.props.address}/reviews/new`;
   }
 
   render() {
