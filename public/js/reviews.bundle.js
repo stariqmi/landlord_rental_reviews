@@ -56,13 +56,17 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _superagent = __webpack_require__(178);
+	var _superagent = __webpack_require__(181);
 
 	var SuperAgent = _interopRequireWildcard(_superagent);
 
-	var _review = __webpack_require__(185);
+	var _review = __webpack_require__(191);
 
 	var _review2 = _interopRequireDefault(_review);
+
+	var _add_review_card = __webpack_require__(192);
+
+	var _add_review_card2 = _interopRequireDefault(_add_review_card);
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -91,7 +95,7 @@
 	        street_addr: ''
 	      },
 	      reviews: [],
-	      avg_rating: ''
+	      avg_rating: 0
 	    };
 	    return _this;
 	  }
@@ -104,7 +108,7 @@
 	      SuperAgent.get('/reviews/' + this.state.id).then(function (res) {
 	        _this2.setState({
 	          reviews: res.body.hits.hits,
-	          avg_rating: res.body.aggregations.avg_rating.value
+	          avg_rating: parseInt(res.body.aggregations.avg_rating.value).toFixed(1)
 	        });
 	      }, function () {
 	        // throw new error
@@ -127,33 +131,72 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+
+	      var components = this.state.reviews.map(function (review) {
+	        return _react2.default.createElement(_review2.default, {
+	          key: review._id,
+	          text: review._source.review,
+	          rating: review._source.rating,
+	          added_at: review._source.added_at
+	        });
+	      });
+
+	      components.push(_react2.default.createElement(_add_review_card2.default, { key: 'add-review', address: this.state.id, size: 'l4 m6' }));
+
+	      console.log(this.state.avg_rating);
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'container' },
+	        null,
 	        _react2.default.createElement(
-	          'center',
+	          'nav',
 	          null,
 	          _react2.default.createElement(
-	            'h4',
-	            { className: 'app-title' },
-	            'Reviews for ',
-	            this.state.address.street_addr,
-	            ' - ',
-	            parseInt(this.state.avg_rating).toFixed(2),
-	            ' / 5'
+	            'div',
+	            { className: 'nav-wrapper orange darken-2' },
+	            _react2.default.createElement(
+	              'ul',
+	              { id: 'nav-mobile', className: 'right hide-on-med-and-down' },
+	              _react2.default.createElement(
+	                'li',
+	                null,
+	                _react2.default.createElement(
+	                  'a',
+	                  { href: '/' },
+	                  _react2.default.createElement(
+	                    'i',
+	                    { className: 'material-icons' },
+	                    'search'
+	                  )
+	                )
+	              )
+	            )
 	          )
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'row' },
-	          this.state.reviews.map(function (review) {
-	            return _react2.default.createElement(_review2.default, {
-	              key: review._id,
-	              text: review._source.review,
-	              rating: review._source.rating,
-	              added_at: review._source.added_at
-	            });
-	          })
+	          { className: 'container' },
+	          _react2.default.createElement(
+	            'h4',
+	            { className: 'app-title' },
+	            'Reviews for ',
+	            _react2.default.createElement(
+	              'span',
+	              { className: 'app-title-green' },
+	              this.state.address.street_addr
+	            )
+	          ),
+	          this.state.avg_rating && !isNaN(this.state.avg_rating) ? _react2.default.createElement(
+	            'h6',
+	            { className: 'app-title-green' },
+	            'Average Rating ',
+	            this.state.avg_rating,
+	            ' / 5.0'
+	          ) : '',
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'row' },
+	            components
+	          )
 	        )
 	      );
 	    }
@@ -21599,7 +21642,10 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 178 */
+/* 178 */,
+/* 179 */,
+/* 180 */,
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21616,11 +21662,11 @@
 	  root = this;
 	}
 
-	var Emitter = __webpack_require__(179);
-	var RequestBase = __webpack_require__(180);
-	var isObject = __webpack_require__(181);
-	var isFunction = __webpack_require__(182);
-	var ResponseBase = __webpack_require__(183);
+	var Emitter = __webpack_require__(182);
+	var RequestBase = __webpack_require__(183);
+	var isObject = __webpack_require__(184);
+	var isFunction = __webpack_require__(185);
+	var ResponseBase = __webpack_require__(186);
 
 	/**
 	 * Noop.
@@ -22514,7 +22560,7 @@
 
 
 /***/ },
-/* 179 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -22683,13 +22729,13 @@
 
 
 /***/ },
-/* 180 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module of mixed-in functions shared between node and client code
 	 */
-	var isObject = __webpack_require__(181);
+	var isObject = __webpack_require__(184);
 
 	/**
 	 * Expose `RequestBase`.
@@ -23231,7 +23277,7 @@
 
 
 /***/ },
-/* 181 */
+/* 184 */
 /***/ function(module, exports) {
 
 	/**
@@ -23250,7 +23296,7 @@
 
 
 /***/ },
-/* 182 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -23260,7 +23306,7 @@
 	 * @return {Boolean}
 	 * @api private
 	 */
-	var isObject = __webpack_require__(181);
+	var isObject = __webpack_require__(184);
 
 	function isFunction(fn) {
 	  var tag = isObject(fn) ? Object.prototype.toString.call(fn) : '';
@@ -23271,7 +23317,7 @@
 
 
 /***/ },
-/* 183 */
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -23279,7 +23325,7 @@
 	 * Module dependencies.
 	 */
 
-	var utils = __webpack_require__(184);
+	var utils = __webpack_require__(187);
 
 	/**
 	 * Expose `ResponseBase`.
@@ -23410,7 +23456,7 @@
 
 
 /***/ },
-/* 184 */
+/* 187 */
 /***/ function(module, exports) {
 
 	
@@ -23484,7 +23530,10 @@
 
 
 /***/ },
-/* 185 */
+/* 188 */,
+/* 189 */,
+/* 190 */,
+/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -23553,6 +23602,89 @@
 	}(_react2.default.Component);
 
 	exports.default = Review;
+
+/***/ },
+/* 192 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var AddReviewCard = function (_React$Component) {
+	  _inherits(AddReviewCard, _React$Component);
+
+	  function AddReviewCard() {
+	    _classCallCheck(this, AddReviewCard);
+
+	    var _this = _possibleConstructorReturn(this, (AddReviewCard.__proto__ || Object.getPrototypeOf(AddReviewCard)).call(this));
+
+	    _this.handleClick = _this.handleClick.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(AddReviewCard, [{
+	    key: "handleClick",
+	    value: function handleClick() {
+	      window.location = "/address/" + this.props.address + "/new";
+	    }
+	  }, {
+	    key: "render",
+	    value: function render() {
+	      return _react2.default.createElement(
+	        "div",
+	        { className: "col s12 " + this.props.size, onClick: this.handleClick },
+	        _react2.default.createElement(
+	          "div",
+	          { className: "card add-action-card orange darken-2" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "card-content white-text" },
+	            _react2.default.createElement(
+	              "p",
+	              null,
+	              "Have you rented this location in the past?"
+	            ),
+	            _react2.default.createElement(
+	              "p",
+	              null,
+	              "Let others know how your experience was!"
+	            )
+	          ),
+	          _react2.default.createElement(
+	            "div",
+	            { className: "card-action add-action-card" },
+	            _react2.default.createElement(
+	              "a",
+	              { href: "#" },
+	              "Review this location"
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return AddReviewCard;
+	}(_react2.default.Component);
+
+	exports.default = AddReviewCard;
 
 /***/ }
 /******/ ]);

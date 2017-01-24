@@ -9,6 +9,18 @@
   color: #f57c00;
 }
 
+.app-title-green {
+  color: #7cb342;
+}
+/*
+.green-text {
+  color: #7cb342;
+}*/
+
+.add-address-text {
+  color: #f57c00;
+}
+
 #search .address-card.card:hover {
   cursor: pointer;
   background-color: #f57c00 !important;
@@ -28,9 +40,27 @@
 }
 
 /* label underline focus color */
+.input-field input[type=text] {
+  border-bottom: 1px solid #7cb342;
+  box-shadow: 0 1px 0 0 #7cb342;
+}
+
 .input-field input[type=text]:focus {
   border-bottom: 1px solid #f57c00;
   box-shadow: 0 1px 0 0 #f57c00;
+}
+
+.error-input {
+  border-bottom: 1px solid #e53935 !important;
+  box-shadow: 0 1px 0 0 #e53935 !important;
+}
+
+.error-toast {
+  background-color: #e53935 !important;
+}
+
+.success-toast {
+  background-color: #7cb342 !important;
 }
 
  /* label color */

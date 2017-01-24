@@ -110,6 +110,22 @@ app.get('/address/new', function(req, res) {
   res.sendFile(__dirname + '/new_address.html');
 })
 
+app.post('/address/new', function(req, res) {
+  esClient.index({
+    index: 'addresses',
+    type: 'address',
+    body: req.body
+  })
+  .then(
+    function(body) {
+      res.send(body);
+    },
+    function(err) {
+      //
+    }
+  )
+});
+
 app.get('/address/:id', function(req, res) {
   esClient.search({
     index: 'addresses',

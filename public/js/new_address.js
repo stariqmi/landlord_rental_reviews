@@ -1,5 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import * as _ from 'lodash';
+import 'materialize-css/js/materialize.js';
+import SuperAgent from 'superagent';
+
+// components
+import InputField from './components/new_address/input_field.js';
 
 class NewAddress extends React.Component {
   constructor() {
@@ -8,51 +14,110 @@ class NewAddress extends React.Component {
 
   handleAddClick() {
     // Validate non empty input
-    let inputs = document.querySelectorAll('input.add-address-input')
+    let errors = false;
+    let data = {};
+    let inputs = document.querySelectorAll('input.add-address-input');
+    _.each(inputs, (input) => {
 
-    // Make AJAX call to add to server
+      input.classList.remove('error-input');
 
-    // Change location to adding a review
+      if (input.value.length < 1) {
+        errors = true;
+        input.classList.add('error-input');
+      }
+      else {
+        data[input.id] = input.value;
+      }
+    });
+
+    if (errors) {
+      Materialize.toast('The fields in red are required!', 2000, 'error-toast');
+      return;
+    }
+    else {
+      // Make AJAX call to add to server
+      SuperAgent.post("/address/new")
+      .send(data)
+      .end((err, res) => {
+        if (err) {
+          Materialize.toast('Something went wrong, please try again', 2000, 'error-toast');
+        }
+        else {
+          Materialize.toast('You can now add reviews for this location!', 600, 'success-toast');
+          setTimeout(() => {window.location = `/address/${res.body._id}/reviews`}, 700);
+        }
+      });
+    }
   }
 
   render() {
     return (
-      <div className="container">
-        <center><h4 className="app-title">Add a new location</h4></center>
-        <div className="row">
-          <div className="input-field col s12 m12 l12">
-            <input placeholder="200 University Avenue" id="street_addr" type="text" className="add-address-input street_addr"></input>
-            <label htmlFor="street_addr">Street Address</label>
+      <div>
+        <nav>
+          <div className="nav-wrapper orange darken-2">
+            <ul id="nav-mobile" className="right hide-on-med-and-down">
+              <li><a href="/"><i className="material-icons">search</i></a></li>
+            </ul>
           </div>
-        </div>
+        </nav>
+        <div className="container">
 
-        <div className="row">
-          <div className="input-field col s12 m6 l6">
-            <input placeholder="Waterloo" id="city" type="text" className="add-address-input city"></input>
-            <label htmlFor="city">City</label>
-          </div>
-
-          <div className="input-field col s12 m6 l6">
-            <input placeholder="Ontario" id="province" type="text" className="add-address-input province"></input>
-            <label htmlFor="province">Province</label>
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="input-field col s12 m6 l6">
-            <input placeholder="N2R 4X6" id="postal_code" type="text" className="add-address-input postal_code"></input>
-            <label htmlFor="postal_code">Postal Code</label>
+          <h4 className="app-title">Add a new location</h4>
+          <div className="row">
+            <InputField
+              responsive="s12 m12 l12"
+              placeholder="200 University Avenue"
+              id="street_addr"
+              classNames="add-address-input street_addr"
+              htmlFor="street_addr"
+              label="Street Address"
+            />
           </div>
 
-          <div className="input-field col s12 m6 l6">
-            <input placeholder="Canada" id="country" type="text" className="add-address-input country"></input>
-            <label htmlFor="country">Country</label>
-          </div>
-        </div>
+          <div className="row">
+            <InputField
+              responsive="s12 m6 l6"
+              placeholder="Waterloo"
+              id="city"
+              classNames="add-address-input city"
+              htmlFor="city"
+              label="City"
+            />
 
-        <div className="row">
-          <div className="col s12 m6 l4">
-            <a className="waves-effect waves-light btn add-address-button" onClick={this.handleAddClick}>Add</a>
+            <InputField
+              responsive="s12 m6 l6"
+              placeholder="Ontario"
+              id="province"
+              classNames="add-address-input province"
+              htmlFor="province"
+              label="Province"
+            />
+          </div>
+
+          <div className="row">
+            <InputField
+              responsive="s12 m6 l6"
+              placeholder="N2R 4X6"
+              id="postal_code"
+              classNames="add-address-input postal_code"
+              htmlFor="postal_code"
+              label="Postal Code"
+            />
+
+            <InputField
+              responsive="s12 m6 l6"
+              placeholder="Canada"
+              id="country"
+              classNames="add-address-input country"
+              htmlFor="country"
+              label="Country"
+            />
+          </div>
+
+          <div className="row">
+            <div className="col s12 m6 l4">
+              <a className="waves-effect waves-light btn add-address-button" onClick={this.handleAddClick}>Add</a>
+            </div>
           </div>
         </div>
       </div>
