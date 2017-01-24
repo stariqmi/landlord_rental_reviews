@@ -118,6 +118,7 @@ class Reviews extends React.Component {
 
   componentDidMount() {
     this.setInitialState();
+    $('#review-modal').modal();
   }
 
   render() {
@@ -174,6 +175,16 @@ class Reviews extends React.Component {
               </center>
             </div>
           </div>
+
+          <div id="review-modal" className="modal">
+            <div className="modal-content">
+              <p>A bunch of text</p>
+            </div>
+            <div className="modal-footer">
+              <a href="#!" className=" modal-action modal-close waves-effect btn-flat">Close</a>
+            </div>
+          </div>
+
         </div>
       </div>
     );

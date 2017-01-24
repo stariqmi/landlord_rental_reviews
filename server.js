@@ -37,7 +37,7 @@ function createAddressQuery(query_params, limit) {
     {
       "should": [
         {
-          "match": query_params
+          "match_phrase_prefix": query_params
         },
         {
           "has_child": {
@@ -83,13 +83,14 @@ function parseAddresses(raw) {
   return {addresses: data};
 }
 
+// ElasticSearch query func
 app.get('/addresses', function(req, res) {
   var query_params = {};
 
   // Convert this into your own middleware
   Object.assign(query_params, req.body, req.query, req.params)
 
-  var limit = query_params.limit || 10;
+  var limit = query_params.limit || 100;
   delete query_params.limit;
 
   var query = createAddressQuery(query_params, limit);
@@ -139,7 +140,6 @@ app.post('/address/:id/reviews/new', function(req, res) {
   })
   .then(
     function(body) {
-      console.log(JSON.stringify(body));
       res.send(body);
     },
     function(err) {

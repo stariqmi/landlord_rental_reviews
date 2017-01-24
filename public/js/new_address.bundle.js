@@ -40730,7 +40730,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        "div",
-	        { className: "input-field col " + this.props.responsive },
+	        { className: "new-address input-field col " + this.props.responsive },
 	        _react2.default.createElement("input", { placeholder: this.props.placeholder, id: this.props.id, type: "text", className: this.props.classNames, "data-label": this.props.label }),
 	        _react2.default.createElement(
 	          "label",

@@ -11,7 +11,7 @@ class AddAddress extends React.Component {
 
   render() {
     return (
-      <div className={"col s6 m4 " + this.props.size} onClick={this.handleClick}>
+      <div className={"col s12 m4 " + this.props.size} onClick={this.handleClick}>
         <div className="card add-action-card orange darken-2">
           <div className="card-content white-text">
             <p>Cannot find what the location you are looking for?</p><br/><br/>

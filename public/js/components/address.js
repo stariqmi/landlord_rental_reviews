@@ -11,7 +11,7 @@ class Address extends React.Component {
 
   render() {
     return (
-      <div className="col s6 m4 l3" onClick={this.handleClick.bind(this, this.props.data.id)}>
+      <div className="col s12 m4 l3" onClick={this.handleClick.bind(this, this.props.data.id)}>
         <div className="card address-card light-green darken-1">
           <div className="card-content white-text">
             <p>
