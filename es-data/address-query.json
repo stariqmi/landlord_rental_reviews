@@ -12,7 +12,7 @@
                        "type": "review",
                        "query": {
                          "match_phrase_prefix": {
-                           "landlord_name": "salman"
+                           "owner_name": "salman"
                          }
                        }
                    }
