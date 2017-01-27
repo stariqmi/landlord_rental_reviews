@@ -10,6 +10,13 @@ class Address extends React.Component {
   }
 
   render() {
+
+    let owner_info = false;
+
+    if (this.data.props.inner_hits.reviews.hits.total > 0) {
+      owner_info = this.data.props.inner_hits.reviews.hits.hits[0]._source.owner_name;
+    }
+
     return (
       <div className="col s12 m4 l3" onClick={this.handleClick.bind(this, this.props.data.id)}>
         <div className="card address-card light-green darken-1">

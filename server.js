@@ -85,6 +85,7 @@ function parseAddresses(raw) {
     var hit = hits[i];
     var source = Object.assign({}, hit._source);
     source.id = hit._id;
+    source.inner_hits = hit.inner_hits
     // source.total_reviews = hit.inner_hits.reviews.hits.total;
 
     // source.avg_rating = avgRating(hit.inner_hits.reviews.hits.hits).toFixed(1);
