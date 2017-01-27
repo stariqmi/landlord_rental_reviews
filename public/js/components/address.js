@@ -12,9 +12,10 @@ class Address extends React.Component {
   render() {
 
     let owner_info = false;
+    let inner_hits = this.props.data.inner_hits
 
-    if (this.data.props.inner_hits.reviews.hits.total > 0) {
-      owner_info = this.data.props.inner_hits.reviews.hits.hits[0]._source.owner_name;
+    if (inner_hits && inner_hits.reviews.hits.total > 0) {
+      owner_info = this.props.data.inner_hits.reviews.hits.hits[0]._source.owner_name;
     }
 
     return (
@@ -25,7 +26,8 @@ class Address extends React.Component {
               <b className="truncate">{this.props.data.street_addr}</b><br/>
               {this.props.data.city + ', ' + this.props.data.province}<br/>
               {this.props.data.postal_code}<br/>
-              {this.props.data.country}
+              {this.props.data.country}<br/>
+              Owner Name: {owner_info || 'N/A'}
             </p>
           </div>
 

@@ -23674,9 +23674,10 @@
 	    value: function render() {
 
 	      var owner_info = false;
+	      var inner_hits = this.props.data.inner_hits;
 
-	      if (this.data.props.inner_hits.reviews.hits.total > 0) {
-	        owner_info = this.data.props.inner_hits.reviews.hits.hits[0]._source.owner_name;
+	      if (inner_hits && inner_hits.reviews.hits.total > 0) {
+	        owner_info = this.props.data.inner_hits.reviews.hits.hits[0]._source.owner_name;
 	      }
 
 	      return _react2.default.createElement(
@@ -23701,7 +23702,10 @@
 	              _react2.default.createElement("br", null),
 	              this.props.data.postal_code,
 	              _react2.default.createElement("br", null),
-	              this.props.data.country
+	              this.props.data.country,
+	              _react2.default.createElement("br", null),
+	              "Owner Name: ",
+	              owner_info || 'N/A'
 	            )
 	          )
 	        )
