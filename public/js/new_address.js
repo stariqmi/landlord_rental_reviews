@@ -5,6 +5,7 @@ import 'materialize-css/js/materialize.js';
 import SuperAgent from 'superagent';
 
 // components
+import Navigation from './components/navigation.js';
 import InputField from './components/new_address/input_field.js';
 
 class NewAddress extends React.Component {
@@ -53,13 +54,7 @@ class NewAddress extends React.Component {
   render() {
     return (
       <div>
-        <nav>
-          <div className="nav-wrapper orange darken-2">
-            <ul id="nav-mobile" className="right">
-              <li><a href="/"><i className="material-icons">search</i></a></li>
-            </ul>
-          </div>
-        </nav>
+        <Navigation />
         <div className="container">
 
           <h4 className="app-title">add a new location</h4>

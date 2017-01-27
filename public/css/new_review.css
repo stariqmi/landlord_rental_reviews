@@ -24,23 +24,23 @@
 
 
 /* label underline focus color */
-.new-review.input-field input[type=number] {
+.new-review.input-field input {
   border-bottom: 1px solid #f57c00;
   box-shadow: 0 1px 0 0 #f57c00;
   color: #f57c00;
 }
 
-.new-review.input-field input[type=number]:focus {
+.new-review.input-field input:focus {
   border-bottom: 1px solid #7cb342;
   box-shadow: 0 1px 0 0 #7cb342;
 }
 
 /* label color */
-.new-review.input-field input[type=number] + label {
+.new-review.input-field input + label {
   color: #f57c00;
 }
 /* label focus color */
-.new-review.input-field input[type=number]:focus + label {
+.new-review.input-field input:focus + label {
  color: #7cb342;
 }
 

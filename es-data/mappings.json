@@ -60,6 +60,15 @@
                 },
                 "added_at": {
                   "type": "date"
+                },
+                "owner_name": {
+                  "type": "string"
+                },
+                "owner_email": {
+                  "type": "string"
+                },
+                "owner_ph": {
+                  "type": "string"
                 }
             }
         }

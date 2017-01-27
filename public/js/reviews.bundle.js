@@ -74,7 +74,11 @@
 
 	var _review2 = _interopRequireDefault(_review);
 
-	var _add_review_card = __webpack_require__(300);
+	var _navigation = __webpack_require__(300);
+
+	var _navigation2 = _interopRequireDefault(_navigation);
+
+	var _add_review_card = __webpack_require__(301);
 
 	var _add_review_card2 = _interopRequireDefault(_add_review_card);
 
@@ -178,23 +182,36 @@
 	      if (errors) {
 	        Materialize.toast('The fields in red are required!', 2000, 'error-toast');
 	      } else {
-	        // Make AJAX call to add to server
-	        SuperAgent.post('/address/' + this.state.id + '/reviews/new').send({
-	          review: review,
-	          rating: rating,
-	          added_at: (0, _moment2.default)().format('YYYY-MM-DD')
-	        }).end(function (err, res) {
-	          if (err) {
-	            Materialize.toast('Something went wrong, please try again', 2000, 'error-toast');
-	          } else {
-	            review_field.value = "";
-	            rating_field.value = "";
-	            Materialize.toast('You added a review for this location!', 600, 'success-toast');
-	            setTimeout(function () {
-	              _this4.setInitialState();
-	            }, 700);
-	          }
-	        });
+	        (function () {
+
+	          var review_data = {
+	            review: review,
+	            rating: rating,
+	            added_at: (0, _moment2.default)().format('YYYY-MM-DD')
+	          };
+
+	          var owner_data = {};
+	          var inputs = document.querySelectorAll('input[type=text]');
+	          _.each(inputs, function (input) {
+	            owner_data[input.id] = input.value;
+	          });
+
+	          var data = Object.assign({}, review_data, owner_data);
+
+	          // Make AJAX call to add to server
+	          SuperAgent.post('/address/' + _this4.state.id + '/reviews/new').send(data).end(function (err, res) {
+	            if (err) {
+	              Materialize.toast('Something went wrong, please try again', 2000, 'error-toast');
+	            } else {
+	              review_field.value = "";
+	              rating_field.value = "";
+	              Materialize.toast('You added a review for this location!', 600, 'success-toast');
+	              setTimeout(function () {
+	                _this4.setInitialState();
+	              }, 700);
+	            }
+	          });
+	        })();
 	      }
 	    }
 	  }, {
@@ -208,12 +225,7 @@
 	    value: function render() {
 
 	      var components = this.state.reviews.map(function (review) {
-	        return _react2.default.createElement(_review2.default, {
-	          key: review._id,
-	          text: review._source.review,
-	          rating: review._source.rating,
-	          added_at: review._source.added_at
-	        });
+	        return _react2.default.createElement(_review2.default, { key: review._id, data: review._source });
 	      });
 
 	      // components.push(<AddReviewCard key="add-review" address={this.state.id} size="l4 m6" />);
@@ -221,38 +233,14 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(
-	          'nav',
-	          null,
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'nav-wrapper orange darken-2' },
-	            _react2.default.createElement(
-	              'ul',
-	              { id: 'nav-mobile', className: 'right' },
-	              _react2.default.createElement(
-	                'li',
-	                null,
-	                _react2.default.createElement(
-	                  'a',
-	                  { href: '/' },
-	                  _react2.default.createElement(
-	                    'i',
-	                    { className: 'material-icons' },
-	                    'search'
-	                  )
-	                )
-	              )
-	            )
-	          )
-	        ),
+	        _react2.default.createElement(_navigation2.default, null),
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'container' },
 	          _react2.default.createElement(
 	            'h4',
 	            { className: 'app-title' },
-	            'reviews for ',
+	            'Reviews or ',
 	            _react2.default.createElement(
 	              'span',
 	              { className: 'app-title-green' },
@@ -285,7 +273,41 @@
 	            { className: 'row' },
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'new-review input-field col s12 m6 l6' },
+	              { className: 'new-review input-field col s12 m12 l4' },
+	              _react2.default.createElement('input', { placeholder: 'John Doe', id: 'owner_name', type: 'text', className: 'owner_name' }),
+	              _react2.default.createElement(
+	                'label',
+	                { htmlFor: 'owner_name' },
+	                'Rental Owner\'s Name'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'new-review input-field col s12 m6 l4' },
+	              _react2.default.createElement('input', { placeholder: 'john.doe@rental.com', id: 'owner_email', type: 'text', className: 'owner_email' }),
+	              _react2.default.createElement(
+	                'label',
+	                { htmlFor: 'owner_name' },
+	                'Rental Owner\'s Email'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'new-review input-field col s12 m6 l4' },
+	              _react2.default.createElement('input', { placeholder: '111-111-111', id: 'owner_ph', type: 'text', className: 'owner_ph' }),
+	              _react2.default.createElement(
+	                'label',
+	                { htmlFor: 'owner_name' },
+	                'Rental Owner\'s Phone'
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'row' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'new-review input-field col s12 m6 l4' },
 	              _react2.default.createElement('input', { placeholder: 'Whole number please!', id: 'rating', type: 'number', className: 'rating', max: '5', min: '0', step: '1' }),
 	              _react2.default.createElement(
 	                'label',
@@ -295,7 +317,7 @@
 	            ),
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'new-review col s12 m6 l6' },
+	              { className: 'new-review col s12 m6 l4' },
 	              _react2.default.createElement(
 	                'a',
 	                { className: 'waves-effect waves-light btn add-review-button', onClick: this.onAddReviewHandle },
@@ -55736,7 +55758,7 @@
 	    key: 'showFullReview',
 	    value: function showFullReview() {
 	      var modal = $('#review-modal');
-	      modal.find('.modal-content p').text(this.props.text);
+	      modal.find('.modal-content p').text(this.props.data.review);
 	      modal.modal('open');
 	    }
 	  }, {
@@ -55754,7 +55776,7 @@
 	            _react2.default.createElement(
 	              'p',
 	              { className: 'truncate' },
-	              this.props.text
+	              this.props.data.review
 	            ),
 	            _react2.default.createElement(
 	              'p',
@@ -55762,13 +55784,13 @@
 	              _react2.default.createElement(
 	                'b',
 	                null,
-	                this.props.rating + ' / 5'
+	                this.props.data.rating + ' / 5'
 	              )
 	            ),
 	            _react2.default.createElement(
 	              'p',
 	              null,
-	              (0, _moment2.default)(this.props.added_at).format('YYYY-MM-DD')
+	              (0, _moment2.default)(this.props.data.added_at).format('YYYY-MM-DD')
 	            )
 	          )
 	        )
@@ -55783,6 +55805,52 @@
 
 /***/ },
 /* 300 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Navigation = function Navigation() {
+	  return _react2.default.createElement(
+	    "nav",
+	    null,
+	    _react2.default.createElement(
+	      "div",
+	      { className: "nav-wrapper orange darken-2" },
+	      _react2.default.createElement(
+	        "ul",
+	        { id: "nav-mobile", className: "right" },
+	        _react2.default.createElement(
+	          "li",
+	          null,
+	          _react2.default.createElement(
+	            "a",
+	            { href: "/" },
+	            _react2.default.createElement(
+	              "i",
+	              { className: "material-icons" },
+	              "search"
+	            )
+	          )
+	        )
+	      )
+	    )
+	  );
+	};
+
+	exports.default = Navigation;
+
+/***/ },
+/* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";

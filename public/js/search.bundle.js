@@ -60,11 +60,11 @@
 
 	var SuperAgent = _interopRequireWildcard(_superagent);
 
-	var _address = __webpack_require__(301);
+	var _address = __webpack_require__(302);
 
 	var _address2 = _interopRequireDefault(_address);
 
-	var _add_address = __webpack_require__(302);
+	var _add_address = __webpack_require__(303);
 
 	var _add_address2 = _interopRequireDefault(_add_address);
 
@@ -167,7 +167,7 @@
 	              _react2.default.createElement(
 	                'h3',
 	                { className: 'app-title' },
-	                'find rental reviews'
+	                'Find Rental Reviews'
 	              )
 	            ),
 	            _react2.default.createElement(
@@ -23631,7 +23631,8 @@
 /* 298 */,
 /* 299 */,
 /* 300 */,
-/* 301 */
+/* 301 */,
+/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -23695,15 +23696,6 @@
 	              _react2.default.createElement("br", null),
 	              this.props.data.country
 	            )
-	          ),
-	          _react2.default.createElement(
-	            "div",
-	            { className: "card-action green-text" },
-	            _react2.default.createElement(
-	              "a",
-	              { href: "/address/" + this.props.data.id + "/reviews" },
-	              this.props.data.total_reviews + " Reviews"
-	            )
 	          )
 	        )
 	      );
@@ -23713,10 +23705,17 @@
 	  return Address;
 	}(_react2.default.Component);
 
+	var review_html = 0;
+	/*
+	<div className="card-action green-text">
+	  <a href={"/address/" + this.props.data.id + "/reviews"}>{this.props.data.total_reviews + " Reviews"}</a>
+	</div>
+	*/
+
 	exports.default = Address;
 
 /***/ },
-/* 302 */
+/* 303 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

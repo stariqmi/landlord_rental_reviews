@@ -28,28 +28,40 @@ function createQuery(type, should, limit) {
     }
   };
 
+
   return query;
 }
 
 function createAddressQuery(query_params, limit) {
+
+  var landlord_name_query = {
+    "has_child": {
+      "type": "review",
+      "query": {
+        "match_phrase_prefix": {
+          "owner_name": query_params.full_addr
+        }
+      },
+      "inner_hits": {
+        "name": "reviews"
+      }
+    }
+  };
+
+  var should = [
+    {
+      "match_phrase_prefix": query_params
+    }
+  ]
+
+  if (query_params.full_addr) {
+    should.push(landlord_name_query);
+  }
+
   return createQuery(
     'address',
     {
-      "should": [
-        {
-          "match_phrase_prefix": query_params
-        },
-        {
-          "has_child": {
-            "type": "review",
-            "query": {"match_all": {}},
-            "inner_hits": {
-              "name": "reviews"
-            }
-          }
-        }
-      ],
-      "minimum_should_match": 2
+      "should": should
     },
     limit || 10
   )
@@ -73,9 +85,9 @@ function parseAddresses(raw) {
     var hit = hits[i];
     var source = Object.assign({}, hit._source);
     source.id = hit._id;
-    source.total_reviews = hit.inner_hits.reviews.hits.total;
+    // source.total_reviews = hit.inner_hits.reviews.hits.total;
 
-    source.avg_rating = avgRating(hit.inner_hits.reviews.hits.hits).toFixed(1);
+    // source.avg_rating = avgRating(hit.inner_hits.reviews.hits.hits).toFixed(1);
 
     data.push(source);
   }

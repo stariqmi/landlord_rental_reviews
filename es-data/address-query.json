@@ -3,15 +3,18 @@
         "bool": {
             "should": [
                {
-                   "match": {
-                    "full_addr": "Brookhaven"
+                   "match_phrase_prefix": {
+                     "full_addr": "Brookhaven"
                    }
                },
                {
                    "has_child": {
                        "type": "review",
-                       "query": {"match_all": {}},
-                       "inner_hits": {}
+                       "query": {
+                         "match_phrase_prefix": {
+                           "landlord_name": "salman"
+                         }
+                       }
                    }
                }
             ]

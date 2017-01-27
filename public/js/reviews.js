@@ -6,8 +6,9 @@ import 'materialize-css/js/materialize.js';
 import moment from 'moment';
 
 // components
-import Review from './components/review.js'
-import AddReviewCard from './components/reviews/add_review_card.js'
+import Review from './components/review.js';
+import Navigation from './components/navigation.js';
+import AddReviewCard from './components/reviews/add_review_card.js';
 
 class Reviews extends React.Component {
   constructor() {
@@ -92,15 +93,24 @@ class Reviews extends React.Component {
       Materialize.toast('The fields in red are required!', 2000, 'error-toast');
     }
     else {
+
+      let review_data = {
+        review: review,
+        rating: rating,
+        added_at: moment().format('YYYY-MM-DD')
+      };
+
+      let owner_data = {};
+      let inputs = document.querySelectorAll('input[type=text]');
+      _.each(inputs, (input) => {
+        owner_data[input.id] = input.value;
+      });
+
+      let data = Object.assign({}, review_data, owner_data);
+
       // Make AJAX call to add to server
       SuperAgent.post(`/address/${this.state.id}/reviews/new`)
-      .send(
-        {
-          review: review,
-          rating: rating,
-          added_at: moment().format('YYYY-MM-DD')
-        }
-      )
+      .send(data)
       .end((err, res) => {
         if (err) {
           Materialize.toast('Something went wrong, please try again', 2000, 'error-toast');
@@ -124,27 +134,16 @@ class Reviews extends React.Component {
   render() {
 
     let components = this.state.reviews.map((review) => {
-      return <Review
-        key={review._id}
-        text={review._source.review}
-        rating={review._source.rating}
-        added_at={review._source.added_at}
-      />
+      return <Review key={review._id} data={review._source} />
     });
 
     // components.push(<AddReviewCard key="add-review" address={this.state.id} size="l4 m6" />);
 
     return (
       <div>
-        <nav>
-          <div className="nav-wrapper orange darken-2">
-            <ul id="nav-mobile" className="right">
-              <li><a href="/"><i className="material-icons">search</i></a></li>
-            </ul>
-          </div>
-        </nav>
+        <Navigation/>
         <div className="container">
-          <h4 className="app-title">reviews for <span className="app-title-green">{this.state.address.street_addr}</span></h4>
+          <h4 className="app-title">Reviews or <span className="app-title-green">{this.state.address.street_addr}</span></h4>
           {
             (this.state.avg_rating && !isNaN(this.state.avg_rating)) ? <h6 className="app-title-green">Average Rating {this.state.avg_rating} / 5.0</h6> : ''
           }
@@ -155,11 +154,25 @@ class Reviews extends React.Component {
             </div>
           </div>
           <div className="row">
-            <div className="new-review input-field col s12 m6 l6">
+            <div className="new-review input-field col s12 m12 l4">
+              <input placeholder="John Doe" id="owner_name" type="text" className="owner_name" ></input>
+              <label htmlFor="owner_name">Rental Owner&#39;s Name</label>
+            </div>
+            <div className="new-review input-field col s12 m6 l4">
+              <input placeholder="john.doe@rental.com" id="owner_email" type="text" className="owner_email" ></input>
+              <label htmlFor="owner_name">Rental Owner&#39;s Email</label>
+            </div>
+            <div className="new-review input-field col s12 m6 l4">
+              <input placeholder="111-111-111" id="owner_ph" type="text" className="owner_ph" ></input>
+              <label htmlFor="owner_name">Rental Owner&#39;s Phone</label>
+            </div>
+          </div>
+          <div className="row">
+            <div className="new-review input-field col s12 m6 l4">
               <input placeholder="Whole number please!" id="rating" type="number" className="rating" max="5" min="0" step="1"></input>
               <label htmlFor="rating">How would you rate it from 1 to 5?</label>
             </div>
-            <div className="new-review col s12 m6 l6">
+            <div className="new-review col s12 m6 l4">
               <a className="waves-effect waves-light btn add-review-button" onClick={this.onAddReviewHandle}>Add Review</a>
             </div>
           </div>

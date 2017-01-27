@@ -73,7 +73,7 @@ class SearchApp extends React.Component {
       <div className="container">
         <div className="row">
           <div className="col s12 m12 l12">
-            <center><h3 className="app-title">find rental reviews</h3></center>
+            <center><h3 className="app-title">Find Rental Reviews</h3></center>
             <div className="row">
               <div className="input-field col s12 offset-m1 m10 offset-l2 l8">
                 <input placeholder="Type an address ..." type="text" onChange={this.handleSearchChange}></input>
